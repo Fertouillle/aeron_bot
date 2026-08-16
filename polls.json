@@ -1,0 +1,63 @@
+{
+    "1081628825198280794-1781994532": {
+        "type": "choix",
+        "question": "Date de la r\u00e9union",
+        "author_id": 219821139910852619,
+        "votes": {
+            "demain": [],
+            "jeudi": [
+                "219821139910852619"
+            ],
+            "vendredi": [],
+            "samedi": [],
+            "dimanche": []
+        }
+    },
+    "1081628825198280794-1781994784": {
+        "type": "choix",
+        "question": "date r\u00e9union",
+        "description": "Voter pour la date qui vous convient le mieux pour la r\u00e9union communautaire",
+        "author_id": 219821139910852619,
+        "votes": {
+            "demain": [],
+            "samedi": [],
+            "jeudi": [],
+            "vendredi": [],
+            "10 juin": []
+        }
+    },
+    "1081628825198280794-1781995057": {
+        "type": "yesno",
+        "question": "R\u00e9union demain ?",
+        "description": "",
+        "author_id": 219821139910852619,
+        "votes": {
+            "\u2705 Oui": [],
+            "\u274c Non": []
+        }
+    },
+    "1081628825198280794-1781995096": {
+        "type": "yesno",
+        "question": "R\u00e9union demain ?",
+        "description": "",
+        "author_id": 219821139910852619,
+        "votes": {
+            "\u2705 Oui": [
+                "219821139910852619"
+            ],
+            "\u274c Non": []
+        }
+    },
+    "1081628825198280794-1781995205": {
+        "type": "yesno",
+        "question": "r2UNION demain ?",
+        "description": "",
+        "author_id": 219821139910852619,
+        "votes": {
+            "\u2705 Oui": [
+                "219821139910852619"
+            ],
+            "\u274c Non": []
+        }
+    }
+}
