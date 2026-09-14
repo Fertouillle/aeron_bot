@@ -42,7 +42,7 @@ def build_reglement_embed() -> discord.Embed:
     description = (
         "Bienvenue sur **Aeron**, serveur Clone Wars RP.\n\n"
         "Le règlement complet de la communauté est disponible dans le document "
-        "ci-dessous. Merci de le lire **attentivement** avant d'accepter — il "
+        "ci-dessous. Merci de le lire **attentivement** avant d'accepter - il "
         "s'applique à tous les membres, sans exception.\n"
         "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
     )
@@ -51,12 +51,11 @@ def build_reglement_embed() -> discord.Embed:
     description += (
         "✅ Une fois la lecture terminée, clique sur **J'ai lu et j'accepte** "
         "ci-dessous pour accéder à l'ensemble du serveur.\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-        "*- Commandement AERON*"
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     )
 
     embed = discord.Embed(
-        title="◈  RÈGLEMENT GÉNÉRAL — AERON  ◈",
+        title="◈  RÈGLEMENT GÉNÉRAL - AERON  ◈",
         description=description,
         color=COLOR_MAIN,
     )
@@ -118,8 +117,7 @@ class ReglementView(discord.ui.View):
             title="◈ RÈGLEMENT ACCEPTÉ",
             description=(
                 f"Bienvenue parmi nous, {interaction.user.mention} !\n"
-                "Tu as accès à l'ensemble du serveur AERON.\n\n"
-                "*- Commandement AERON*"
+                "Tu as accès à l'ensemble du serveur AERON."
             ),
             color=COLOR_SUCCESS,
         )

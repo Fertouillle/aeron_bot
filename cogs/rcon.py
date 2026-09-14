@@ -165,7 +165,7 @@ async def log_rcon_action(bot, author: discord.abc.User, action: str, command: s
         return
 
     embed = discord.Embed(
-        title="◈  RCON — ACTION EXÉCUTÉE  ◈",
+        title="◈  RCON - ACTION EXÉCUTÉE  ◈",
         description=(
             f"👤 **Auteur :** {author.mention}\n"
             f"⚙️ **Action :** {action}\n"
@@ -187,7 +187,7 @@ async def log_rcon_action(bot, author: discord.abc.User, action: str, command: s
             break
 
 # ─────────────────────────────────────────
-#  MODALS — ACTIONS
+#  MODALS - ACTIONS
 # ─────────────────────────────────────────
 
 class RconActionModal(discord.ui.Modal):
@@ -257,7 +257,7 @@ class BanModal(RconActionModal, title="Bannir un joueur"):
         return RCON_COMMANDS["ban"].format(player=player, duration=duration, reason=reason)
 
 # ─────────────────────────────────────────
-#  MODAL — CONFIGURATION
+#  MODAL - CONFIGURATION
 # ─────────────────────────────────────────
 
 class RconConfigModal(discord.ui.Modal, title="Configuration RCON"):
@@ -290,11 +290,11 @@ class RconConfigModal(discord.ui.Modal, title="Configuration RCON"):
 
 def build_rcon_settings_embed(cfg: dict) -> discord.Embed:
     ip_line = f"`{cfg['ip']}:{cfg['port']}`" if cfg.get("ip") else "*Non configuré*"
-    pwd_line = "`••••••••` (variable d'environnement)" if cfg.get("password") else "❌ *Non défini — ajoute `RCON_PASSWORD` dans les variables d'environnement*"
+    pwd_line = "`••••••••` (variable d'environnement)" if cfg.get("password") else "❌ *Non défini - ajoute `RCON_PASSWORD` dans les variables d'environnement*"
     logs_line = f"<#{cfg['logs_channel_id']}>" if cfg.get("logs_channel_id") else "*Non configuré*"
 
     embed = discord.Embed(
-        title="◈  RCON — CONFIGURATION  ◈",
+        title="◈  RCON - CONFIGURATION  ◈",
         description=(
             f"**Adresse :** {ip_line}\n"
             f"**Mot de passe :** {pwd_line}\n"
@@ -302,7 +302,7 @@ def build_rcon_settings_embed(cfg: dict) -> discord.Embed:
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
             "🔒 Le mot de passe RCON se configure uniquement via la variable d'environnement "
             "`RCON_PASSWORD` (jamais stocké dans un fichier).\n"
-            "⚠️ Le format exact des commandes kick/ban dépend de SAM — "
+            "⚠️ Le format exact des commandes kick/ban dépend de SAM - "
             "vérifie `RCON_COMMANDS` dans `rcon.py` si ça ne correspond pas à ta config."
         ),
         color=COLOR_MAIN,

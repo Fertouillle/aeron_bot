@@ -25,7 +25,7 @@ DEFAULT_BIRTHDAYS_CONFIG = {
 DATE_REGEX = re.compile(r"^([0-3]?\d)[/\-]([01]?\d)$")
 
 # ─────────────────────────────────────────
-#  UTILS — CONFIG
+#  UTILS - CONFIG
 # ─────────────────────────────────────────
 
 def load_config():
@@ -51,7 +51,7 @@ def save_birthdays_config(cfg: dict):
     save_config(config)
 
 # ─────────────────────────────────────────
-#  UTILS — DONNÉES (jour/mois uniquement, pas d'année)
+#  UTILS - DONNÉES (jour/mois uniquement, pas d'année)
 # ─────────────────────────────────────────
 
 def load_data():
@@ -65,7 +65,7 @@ def save_data(data):
         json.dump(data, f, indent=4)
 
 # ─────────────────────────────────────────
-#  SETTINGS — SELECT SALON
+#  SETTINGS - SELECT SALON
 # ─────────────────────────────────────────
 
 class BirthdayChannelSelect(discord.ui.ChannelSelect):
@@ -88,7 +88,7 @@ class BirthdayChannelSelect(discord.ui.ChannelSelect):
 def build_birthdays_settings_embed(cfg: dict) -> discord.Embed:
     channel_display = f"<#{cfg['channel_id']}>" if cfg['channel_id'] else "Non configuré"
     embed = discord.Embed(
-        title="◈  SETTINGS — ANNIVERSAIRES  ◈",
+        title="◈  SETTINGS - ANNIVERSAIRES  ◈",
         description=(
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
             f"**Salon d'annonces :** {channel_display}\n"

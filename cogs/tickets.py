@@ -158,7 +158,7 @@ async def send_log(guild: discord.Guild, embed: discord.Embed, file=None):
             await channel.send(embed=embed)
 
 async def generate_transcript(channel: discord.TextChannel) -> io.StringIO:
-    lines = [f"=== TRANSCRIPT — {channel.name} ===\n"]
+    lines = [f"=== TRANSCRIPT - {channel.name} ===\n"]
     async for message in channel.history(limit=500, oldest_first=True):
         timestamp = message.created_at.strftime("%d/%m/%Y %H:%M")
         content   = message.content or "[embed/fichier]"
@@ -173,12 +173,12 @@ def build_panel_embed() -> discord.Embed:
             "Sélectionne le type de requête dans le menu ci-dessous.\n"
             "Notre équipe traitera ta demande dans les plus brefs délais.\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-            "❓  **Aide / Question** — Une question sur le serveur\n"
-            "🔓  **Déban** — Contester un bannissement\n"
-            "⚠️  **Plainte** — Signaler un joueur ou un staff\n"
-            "📋  **Recrutement** — Rejoindre l'équipe\n"
-            "🤝  **Partenariat** — Proposer un partenariat\n"
-            "🐛  **Bug** — Signaler un dysfonctionnement\n"
+            "❓  **Aide / Question** - Une question sur le serveur\n"
+            "🔓  **Déban** - Contester un bannissement\n"
+            "⚠️  **Plainte** - Signaler un joueur ou un staff\n"
+            "📋  **Recrutement** - Rejoindre l'équipe\n"
+            "🤝  **Partenariat** - Proposer un partenariat\n"
+            "🐛  **Bug** - Signaler un dysfonctionnement\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
             "*Un seul ticket par catégorie autorisé simultanément.*"
         ),
@@ -440,7 +440,7 @@ class TicketSelect(discord.ui.Select):
             )
 
             embed = discord.Embed(
-                title=f"[ REQUÊTE #{number:04d} — {config['label'].upper()} ]",
+                title=f"[ REQUÊTE #{number:04d} - {config['label'].upper()} ]",
                 description=config["message"],
                 color=config["color"],
             )

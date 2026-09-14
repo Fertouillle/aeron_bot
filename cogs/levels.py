@@ -31,7 +31,7 @@ DEFAULT_LEVELS_CONFIG = {
 }
 
 # ─────────────────────────────────────────
-#  UTILS — CONFIG
+#  UTILS - CONFIG
 # ─────────────────────────────────────────
 
 def load_config():
@@ -57,7 +57,7 @@ def save_levels_config(cfg: dict):
     save_config(config)
 
 # ─────────────────────────────────────────
-#  UTILS — DONNÉES XP
+#  UTILS - DONNÉES XP
 # ─────────────────────────────────────────
 
 def load_data():
@@ -118,7 +118,7 @@ def build_rank_embed(member: discord.Member, entry: dict) -> discord.Embed:
     bar = "█" * filled + "░" * (bar_length - filled)
 
     embed = discord.Embed(
-        title=f"◈  RANG — {member.display_name.upper()}  ◈",
+        title=f"◈  RANG - {member.display_name.upper()}  ◈",
         description=(
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
             f"🏅 **Niveau :** `{level}`\n"
@@ -143,10 +143,10 @@ def build_leaderboard_embed(guild: discord.Guild, data: dict) -> discord.Embed:
         name = member.display_name if member else f"Membre inconnu ({user_id})"
         rank_icon = medals[i] if i < 3 else f"`#{i + 1}`"
         level = level_from_xp(entry.get("xp", 0))
-        lines.append(f"{rank_icon} **{name}** — Niveau `{level}` (`{entry.get('xp', 0)}` XP)")
+        lines.append(f"{rank_icon} **{name}** - Niveau `{level}` (`{entry.get('xp', 0)}` XP)")
 
     embed = discord.Embed(
-        title="◈  CLASSEMENT — TOP 10  ◈",
+        title="◈  CLASSEMENT - TOP 10  ◈",
         description="\n".join(lines) if lines else "*Aucune activité enregistrée pour le moment.*",
         color=COLOR_MAIN,
     )
@@ -162,7 +162,7 @@ def build_levels_settings_embed(cfg: dict) -> discord.Embed:
         rewards_text = "　　*Aucune récompense configurée.*"
 
     embed = discord.Embed(
-        title="◈  SETTINGS — NIVEAUX / XP  ◈",
+        title="◈  SETTINGS - NIVEAUX / XP  ◈",
         description=(
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
             f"**Statut :** {'✅ Activé' if cfg['enabled'] else '❌ Désactivé'}\n"
@@ -177,7 +177,7 @@ def build_levels_settings_embed(cfg: dict) -> discord.Embed:
     return embed
 
 # ─────────────────────────────────────────
-#  SETTINGS — SELECTS
+#  SETTINGS - SELECTS
 # ─────────────────────────────────────────
 
 class LevelsChannelSelect(discord.ui.ChannelSelect):
@@ -246,7 +246,7 @@ class RemoveRewardSelect(discord.ui.Select):
         options = []
         for lvl, role_id in sorted(rewards.items(), key=lambda kv: int(kv[0])):
             role = guild.get_role(role_id)
-            label = f"Niveau {lvl} — {role.name if role else 'Rôle supprimé'}"
+            label = f"Niveau {lvl} - {role.name if role else 'Rôle supprimé'}"
             options.append(discord.SelectOption(label=label[:100], value=lvl))
         super().__init__(placeholder="Sélectionne la récompense à retirer...", options=options[:25])
 
@@ -265,7 +265,7 @@ class RemoveRewardSelect(discord.ui.Select):
         await interaction.response.edit_message(embed=embed, view=None)
 
 # ─────────────────────────────────────────
-#  SETTINGS — VUE PRINCIPALE
+#  SETTINGS - VUE PRINCIPALE
 # ─────────────────────────────────────────
 
 class LevelsSettingsView(discord.ui.View):

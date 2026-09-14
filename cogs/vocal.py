@@ -19,7 +19,7 @@ CONFIG_FILE   = "config.json"
 CHANNELS_FILE = "vocal_channels.json"
 
 # ─────────────────────────────────────────
-#  UTILS — CONFIG
+#  UTILS - CONFIG
 # ─────────────────────────────────────────
 
 def load_config():
@@ -33,7 +33,7 @@ def save_config(data):
         json.dump(data, f, indent=4)
 
 # ─────────────────────────────────────────
-#  UTILS — SALONS TEMPORAIRES (persistance)
+#  UTILS - SALONS TEMPORAIRES (persistance)
 # ─────────────────────────────────────────
 
 def load_channels():
@@ -47,21 +47,21 @@ def save_channels(data):
         json.dump(data, f, indent=4)
 
 # ─────────────────────────────────────────
-#  EMBED — PANNEAU DE CONTRÔLE
+#  EMBED - PANNEAU DE CONTRÔLE
 # ─────────────────────────────────────────
 
 def build_panel_embed(owner: discord.Member) -> discord.Embed:
     embed = discord.Embed(
-        title="◈  SALON VOCAL — PANNEAU DE CONTRÔLE  ◈",
+        title="◈  SALON VOCAL - PANNEAU DE CONTRÔLE  ◈",
         description=(
             f"**Propriétaire :** {owner.mention}\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-            "🔒 **Verrouiller / Déverrouiller** — Empêche les nouvelles connexions "
+            "🔒 **Verrouiller / Déverrouiller** - Empêche les nouvelles connexions "
             "*(le salon reste visible par tous)*\n"
-            "👥 **Limite** — Définit le nombre maximum de connectés\n"
-            "✏️ **Renommer** — Change le nom du salon\n"
-            "✅ **Autoriser** — Laisse entrer un membre même si le salon est verrouillé\n"
-            "🚫 **Retirer accès** — Retire l'accès prioritaire d'un membre\n"
+            "👥 **Limite** - Définit le nombre maximum de connectés\n"
+            "✏️ **Renommer** - Change le nom du salon\n"
+            "✅ **Autoriser** - Laisse entrer un membre même si le salon est verrouillé\n"
+            "🚫 **Retirer accès** - Retire l'accès prioritaire d'un membre\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
             "*Ce salon est automatiquement supprimé lorsqu'il est vide.*"
         ),
@@ -131,7 +131,7 @@ class LimitModal(discord.ui.Modal, title="Définir la limite"):
         await interaction.response.send_message(f"✅ Limite définie sur **{texte}**.", ephemeral=True)
 
 # ─────────────────────────────────────────
-#  SELECTS — AUTORISER / RETIRER
+#  SELECTS - AUTORISER / RETIRER
 # ─────────────────────────────────────────
 
 class AllowUserSelect(discord.ui.UserSelect):

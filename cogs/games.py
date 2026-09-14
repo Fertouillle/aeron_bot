@@ -92,7 +92,7 @@ class RPSChoiceView(discord.ui.View):
             for child in self.challenge_view.children:
                 child.disabled = True
             embed = discord.Embed(
-                title="◈  PIERRE - FEUILLE - CISEAUX — RÉSULTAT  ◈",
+                title="◈  PIERRE - FEUILLE - CISEAUX - RÉSULTAT  ◈",
                 description=self.match.result_description(),
                 color=COLOR_SUCCESS,
             )
@@ -204,7 +204,7 @@ def build_morpion_embed(match) -> discord.Embed:
     embed = discord.Embed(
         title="◈  MORPION  ◈",
         description=(
-            f"❌ {match.player_x.mention}  —  ⭕ {match.player_o.mention}\n"
+            f"❌ {match.player_x.mention}  -  ⭕ {match.player_o.mention}\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
             f"{description}"
         ),
@@ -300,7 +300,7 @@ class MorpionView(discord.ui.View):
         for child in self.children:
             child.disabled = True
         embed = discord.Embed(
-            title="◈  MORPION — EXPIRÉ  ◈",
+            title="◈  MORPION - EXPIRÉ  ◈",
             description="⏱️ Partie annulée pour cause d'inactivité (5 minutes).",
             color=COLOR_DANGER,
         )
@@ -363,7 +363,7 @@ class MorpionAcceptView(discord.ui.View):
             for child in self.children:
                 child.disabled = True
             embed = discord.Embed(
-                title="◈  MORPION — EXPIRÉ  ◈",
+                title="◈  MORPION - EXPIRÉ  ◈",
                 description="Le temps est écoulé (1 minute), le défi a été annulé faute de réponse.",
                 color=COLOR_DANGER
             )

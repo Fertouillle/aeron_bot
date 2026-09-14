@@ -32,8 +32,7 @@ def build_welcome_embed(member: discord.Member) -> discord.Embed:
             f"**{member.mention} vient de rejoindre la Flotte Aeron.**\n\n"
             "Bienvenue parmi nous, soldat.\n"
             "Prends connaissance du règlement et choisis ta faction.\n"
-            "La République compte sur toi.\n\n"
-            "*- Commandement d'Aeron*"
+            "La République compte sur toi."
         ),
         color=COLOR_MAIN,
     )

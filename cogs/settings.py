@@ -63,7 +63,7 @@ class SettingsMainView(discord.ui.View):
         current    = f"<#{channel_id}>" if channel_id else "*Non configuré*"
 
         embed = discord.Embed(
-            title="◈  SETTINGS — BIENVENUE  ◈",
+            title="◈  SETTINGS - BIENVENUE  ◈",
             description=f"**Salon actuel :** {current}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
             color=COLOR_MAIN,
         )
@@ -80,7 +80,7 @@ class SettingsMainView(discord.ui.View):
         doc_current = doc_url if doc_url else "*Non configuré*"
 
         embed = discord.Embed(
-            title="◈  SETTINGS — RÈGLEMENT  ◈",
+            title="◈  SETTINGS - RÈGLEMENT  ◈",
             description=(
                 f"**Rôle attribué à l'acceptation :** {current}\n"
                 f"**Lien du règlement :** {doc_current}\n"
@@ -95,7 +95,7 @@ class SettingsMainView(discord.ui.View):
     @discord.ui.button(label="Système de tickets", emoji="🎫", style=discord.ButtonStyle.primary)
     async def tickets_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
-            title="◈  SETTINGS — TICKETS  ◈",
+            title="◈  SETTINGS - TICKETS  ◈",
             description="━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
             color=COLOR_MAIN,
         )
@@ -110,7 +110,7 @@ class SettingsMainView(discord.ui.View):
         current    = f"<#{channel_id}>" if channel_id else "*Non configuré*"
 
         embed = discord.Embed(
-            title="◈  SETTINGS — SONDAGES  ◈",
+            title="◈  SETTINGS - SONDAGES  ◈",
             description=f"**Salon de logs actuel :** {current}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
             color=COLOR_MAIN,
         )
@@ -125,7 +125,7 @@ class SettingsMainView(discord.ui.View):
         current    = f"<#{channel_id}>" if channel_id else "*Non configuré*"
 
         embed = discord.Embed(
-            title="◈  SETTINGS — MODÉRATION  ◈",
+            title="◈  SETTINGS - MODÉRATION  ◈",
             description=f"**Salon de logs actuel :** {current}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
             color=COLOR_MAIN,
         )
@@ -140,7 +140,7 @@ class SettingsMainView(discord.ui.View):
         current    = f"<#{channel_id}>" if channel_id else "*Non configuré*"
 
         embed = discord.Embed(
-            title="◈  SETTINGS — SALONS VOCAUX  ◈",
+            title="◈  SETTINGS - SALONS VOCAUX  ◈",
             description=(
                 f"**Salon \"Créer votre salon\" actuel :** {current}\n"
                 "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -156,12 +156,12 @@ class SettingsMainView(discord.ui.View):
         from cogs.reactionroles import ReactionRolesMenuView
 
         embed = discord.Embed(
-            title="◈  SETTINGS — RÔLES À RÉACTION  ◈",
+            title="◈  SETTINGS - RÔLES À RÉACTION  ◈",
             description=(
                 "Crée un panneau de rôles ou modifie un panneau existant.\n"
                 "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                "➕ **Créer un panneau** — Choisis un titre, une description et un salon\n"
-                "🛠️ **Gérer un panneau existant** — Ajoute/retire des rôles sans tout refaire"
+                "➕ **Créer un panneau** - Choisis un titre, une description et un salon\n"
+                "🛠️ **Gérer un panneau existant** - Ajoute/retire des rôles sans tout refaire"
             ),
             color=COLOR_MAIN,
         )
@@ -412,7 +412,7 @@ class SettingsReglementChannelView(discord.ui.View):
         doc_current = doc_url if doc_url else "*Non configuré*"
 
         embed = discord.Embed(
-            title="◈  SETTINGS — RÈGLEMENT  ◈",
+            title="◈  SETTINGS - RÈGLEMENT  ◈",
             description=(
                 f"**Rôle attribué à l'acceptation :** {current}\n"
                 f"**Lien du règlement :** {doc_current}\n"
@@ -460,7 +460,7 @@ class SettingsTicketsView(discord.ui.View):
     @discord.ui.button(label="Gérer les rôles support", emoji="👥", style=discord.ButtonStyle.primary)
     async def manage_roles(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
-            title="◈  RÔLES SUPPORT — CATÉGORIE  ◈",
+            title="◈  RÔLES SUPPORT - CATÉGORIE  ◈",
             description="Sélectionne la catégorie de ticket pour gérer ses rôles support.",
             color=COLOR_MAIN,
         )
@@ -474,7 +474,7 @@ class SettingsTicketsView(discord.ui.View):
         log_channel_id = config["tickets"].get("logs_channel_id")
 
         embed = discord.Embed(
-            title="◈  CONFIG ACTUELLE — TICKETS  ◈",
+            title="◈  CONFIG ACTUELLE - TICKETS  ◈",
             color=COLOR_MAIN,
         )
         embed.add_field(
@@ -550,7 +550,7 @@ class SettingsPanelChannelView(discord.ui.View):
 
     @discord.ui.button(label="Retour", emoji="◀️", style=discord.ButtonStyle.danger)
     async def back(self, interaction: discord.Interaction, button: discord.ui.Button):
-        embed = discord.Embed(title="◈  SETTINGS — TICKETS  ◈", color=COLOR_MAIN)
+        embed = discord.Embed(title="◈  SETTINGS - TICKETS  ◈", color=COLOR_MAIN)
         embed.set_footer(text="AERON • Settings", icon_url=AERON_LOGO)
         await interaction.response.edit_message(embed=embed, view=SettingsTicketsView())
 
@@ -599,7 +599,7 @@ class SettingsLogsChannelView(discord.ui.View):
 
     @discord.ui.button(label="Retour", emoji="◀️", style=discord.ButtonStyle.danger)
     async def back(self, interaction: discord.Interaction, button: discord.ui.Button):
-        embed = discord.Embed(title="◈  SETTINGS — TICKETS  ◈", color=COLOR_MAIN)
+        embed = discord.Embed(title="◈  SETTINGS - TICKETS  ◈", color=COLOR_MAIN)
         embed.set_footer(text="AERON • Settings", icon_url=AERON_LOGO)
         await interaction.response.edit_message(embed=embed, view=SettingsTicketsView())
 
@@ -626,7 +626,7 @@ class TicketCategorySelect(discord.ui.Select):
         current  = " ".join([f"<@&{r}>" for r in role_ids]) if role_ids else "*Aucun rôle configuré*"
 
         embed = discord.Embed(
-            title=f"◈  RÔLES — {TICKETS_LABELS[category].upper()}  ◈",
+            title=f"◈  RÔLES - {TICKETS_LABELS[category].upper()}  ◈",
             description=(
                 f"**Rôles actuels :** {current}\n"
                 "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -650,7 +650,7 @@ class SettingsRolesCategoryView(discord.ui.View):
 
     @discord.ui.button(label="Retour", emoji="◀️", style=discord.ButtonStyle.danger)
     async def back(self, interaction: discord.Interaction, button: discord.ui.Button):
-        embed = discord.Embed(title="◈  SETTINGS — TICKETS  ◈", color=COLOR_MAIN)
+        embed = discord.Embed(title="◈  SETTINGS - TICKETS  ◈", color=COLOR_MAIN)
         embed.set_footer(text="AERON • Settings", icon_url=AERON_LOGO)
         await interaction.response.edit_message(embed=embed, view=SettingsTicketsView())
 
@@ -674,7 +674,7 @@ class AddRoleSelect(discord.ui.RoleSelect):
 
         current = " ".join([f"<@&{r}>" for r in role_ids])
         embed   = discord.Embed(
-            title=f"◈  RÔLES — {TICKETS_LABELS[self.category].upper()}  ◈",
+            title=f"◈  RÔLES - {TICKETS_LABELS[self.category].upper()}  ◈",
             description=f"**Rôles actuels :** {current}\n✅ Rôle ajouté.",
             color=COLOR_SUCCESS,
         )
@@ -698,7 +698,7 @@ class RemoveRoleSelect(discord.ui.RoleSelect):
 
         current = " ".join([f"<@&{r}>" for r in role_ids]) if role_ids else "*Aucun rôle*"
         embed   = discord.Embed(
-            title=f"◈  RÔLES — {TICKETS_LABELS[self.category].upper()}  ◈",
+            title=f"◈  RÔLES - {TICKETS_LABELS[self.category].upper()}  ◈",
             description=f"**Rôles actuels :** {current}\n✅ Rôle retiré.",
             color=COLOR_WARN,
         )
@@ -722,7 +722,7 @@ class SettingsRolesEditView(discord.ui.View):
     @discord.ui.button(label="Retour", emoji="◀️", style=discord.ButtonStyle.danger)
     async def back(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
-            title="◈  RÔLES SUPPORT — CATÉGORIE  ◈",
+            title="◈  RÔLES SUPPORT - CATÉGORIE  ◈",
             description="Sélectionne la catégorie de ticket pour gérer ses rôles support.",
             color=COLOR_MAIN,
         )
@@ -850,7 +850,7 @@ class ModerationCommandSelect(discord.ui.Select):
         current  = " ".join([f"<@&{r}>" for r in role_ids]) if role_ids else "*Aucun rôle configuré*"
 
         embed = discord.Embed(
-            title=f"◈  RÔLES — {MOD_COMMANDS[command].upper()}  ◈",
+            title=f"◈  RÔLES - {MOD_COMMANDS[command].upper()}  ◈",
             description=f"**Rôles autorisés :** {current}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
             color=COLOR_MAIN,
         )
@@ -872,7 +872,7 @@ class SettingsModerationView(discord.ui.View):
     @discord.ui.button(label="Gérer les rôles par commande", emoji="👥", style=discord.ButtonStyle.primary)
     async def manage_roles(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
-            title="◈  RÔLES — COMMANDE  ◈",
+            title="◈  RÔLES - COMMANDE  ◈",
             description="Sélectionne une commande pour gérer ses rôles autorisés.",
             color=COLOR_MAIN,
         )
@@ -886,7 +886,7 @@ class SettingsModerationView(discord.ui.View):
         log_id = config.get("moderation", {}).get("logs_channel_id")
 
         embed = discord.Embed(
-            title="◈  CONFIG — MODÉRATION  ◈",
+            title="◈  CONFIG - MODÉRATION  ◈",
             color=COLOR_MAIN,
         )
         embed.add_field(
@@ -936,7 +936,7 @@ class SettingsModerationCommandView(discord.ui.View):
         channel_id = config.get("moderation", {}).get("logs_channel_id")
         current    = f"<#{channel_id}>" if channel_id else "*Non configuré*"
         embed = discord.Embed(
-            title="◈  SETTINGS — MODÉRATION  ◈",
+            title="◈  SETTINGS - MODÉRATION  ◈",
             description=f"**Salon de logs actuel :** {current}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
             color=COLOR_MAIN,
         )
@@ -962,7 +962,7 @@ class AddModRoleSelect(discord.ui.RoleSelect):
 
         current = " ".join([f"<@&{r}>" for r in role_ids])
         embed   = discord.Embed(
-            title=f"◈  RÔLES — {MOD_COMMANDS[self.command].upper()}  ◈",
+            title=f"◈  RÔLES - {MOD_COMMANDS[self.command].upper()}  ◈",
             description=f"**Rôles autorisés :** {current}\n✅ Rôle ajouté.",
             color=COLOR_SUCCESS,
         )
@@ -986,7 +986,7 @@ class RemoveModRoleSelect(discord.ui.RoleSelect):
 
         current = " ".join([f"<@&{r}>" for r in role_ids]) if role_ids else "*Aucun rôle*"
         embed   = discord.Embed(
-            title=f"◈  RÔLES — {MOD_COMMANDS[self.command].upper()}  ◈",
+            title=f"◈  RÔLES - {MOD_COMMANDS[self.command].upper()}  ◈",
             description=f"**Rôles autorisés :** {current}\n✅ Rôle retiré.",
             color=COLOR_WARN,
         )
@@ -1010,7 +1010,7 @@ class SettingsModerationRolesView(discord.ui.View):
     @discord.ui.button(label="Retour", emoji="◀️", style=discord.ButtonStyle.danger)
     async def back(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
-            title="◈  RÔLES — COMMANDE  ◈",
+            title="◈  RÔLES - COMMANDE  ◈",
             description="Sélectionne une commande pour gérer ses rôles autorisés.",
             color=COLOR_MAIN,
         )
@@ -1066,7 +1066,7 @@ class VocalHubChannelChoiceView(discord.ui.View):
         try:
             channel = await interaction.guild.create_voice_channel(
                 name="➕・Créer votre salon",
-                reason="Salon hub de création de vocaux — AERON"
+                reason="Salon hub de création de vocaux - AERON"
             )
 
             config = load_config()
@@ -1101,7 +1101,7 @@ class VocalHubChannelChoiceView(discord.ui.View):
 
     @discord.ui.button(label="Retour", emoji="◀️", style=discord.ButtonStyle.danger)
     async def back(self, interaction: discord.Interaction, button: discord.ui.Button):
-        embed = discord.Embed(title="◈  SETTINGS — SALONS VOCAUX  ◈", color=COLOR_MAIN)
+        embed = discord.Embed(title="◈  SETTINGS - SALONS VOCAUX  ◈", color=COLOR_MAIN)
         embed.set_footer(text="AERON • Settings", icon_url=AERON_LOGO)
         await interaction.response.edit_message(embed=embed, view=SettingsVocalView())
 
@@ -1123,8 +1123,8 @@ class SettingsVocalView(discord.ui.View):
             description=(
                 "Comment veux-tu configurer ce salon ?\n"
                 "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                "🤖 **Créer automatiquement** — Le bot crée le salon\n"
-                "📌 **Choisir un salon existant** — Tu sélectionnes ton salon"
+                "🤖 **Créer automatiquement** - Le bot crée le salon\n"
+                "📌 **Choisir un salon existant** - Tu sélectionnes ton salon"
             ),
             color=COLOR_MAIN,
         )

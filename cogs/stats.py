@@ -62,7 +62,7 @@ class Stats(commands.Cog):
         active_members = len(levels_data)
 
         embed = discord.Embed(
-            title="◈  STATISTIQUES — AERON  ◈",
+            title="◈  STATISTIQUES - AERON  ◈",
             color=COLOR_MAIN,
         )
         embed.set_thumbnail(url=guild.icon.url if guild.icon else AERON_LOGO)

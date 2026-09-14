@@ -50,7 +50,7 @@ INVITE_REGEX = re.compile(
 )
 
 # ─────────────────────────────────────────
-#  UTILS — CONFIG
+#  UTILS - CONFIG
 # ─────────────────────────────────────────
 
 def load_config():
@@ -79,7 +79,7 @@ def save_automod_config(automod: dict):
     save_config(config)
 
 # ─────────────────────────────────────────
-#  EMBED — RÉSUMÉ ANTI-ABUS
+#  EMBED - RÉSUMÉ ANTI-ABUS
 # ─────────────────────────────────────────
 
 def build_automod_embed(automod: dict) -> discord.Embed:
@@ -91,15 +91,15 @@ def build_automod_embed(automod: dict) -> discord.Embed:
         return "✅ Activé" if enabled else "❌ Désactivé"
 
     embed = discord.Embed(
-        title="◈  SETTINGS — ANTI-ABUS  ◈",
+        title="◈  SETTINGS - ANTI-ABUS  ◈",
         description=(
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"🚨 **Antispam** — {state(antispam['enabled'])}\n"
+            f"🚨 **Antispam** - {state(antispam['enabled'])}\n"
             f"　　`{antispam['max_messages']}` messages / `{antispam['interval_seconds']}`s "
             f"→ mute `{antispam['timeout_seconds']}`s\n\n"
-            f"🚫 **Anti-invitation** — {state(invite['enabled'])}\n"
+            f"🚫 **Anti-invitation** - {state(invite['enabled'])}\n"
             f"　　Supprime les liens d'invitation vers d'autres serveurs\n\n"
-            f"🕵️ **Anti multi-compte** — {state(alt['enabled'])}\n"
+            f"🕵️ **Anti multi-compte** - {state(alt['enabled'])}\n"
             f"　　Seuil : `{alt['min_account_age_days']}` jour(s)  •  "
             f"Action : `{'Kick auto' if alt['action'] == 'kick' else 'Alerte staff'}`\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -111,7 +111,7 @@ def build_automod_embed(automod: dict) -> discord.Embed:
     return embed
 
 # ─────────────────────────────────────────
-#  MODALS — SEUILS
+#  MODALS - SEUILS
 # ─────────────────────────────────────────
 
 class AntispamThresholdsModal(discord.ui.Modal, title="Seuils de l'antispam"):
@@ -265,7 +265,7 @@ class AutoMod(commands.Cog):
         self._spam_tracker: dict[int, list[float]] = {}
 
     # ─────────────────────────────────────
-    #  /clear — NETTOYER UN SALON
+    #  /clear - NETTOYER UN SALON
     # ─────────────────────────────────────
 
     @app_commands.command(name="clear", description="Supprimer des messages dans ce salon")
@@ -318,7 +318,7 @@ class AutoMod(commands.Cog):
         )
 
     # ─────────────────────────────────────
-    #  /compte-info — AIDE MANUELLE ANTI-ALT
+    #  /compte-info - AIDE MANUELLE ANTI-ALT
     # ─────────────────────────────────────
 
     @app_commands.command(name="compte-info", description="Voir l'âge et la date d'arrivée d'un membre")
@@ -333,7 +333,7 @@ class AutoMod(commands.Cog):
         join_age = (now - membre.joined_at).days if membre.joined_at else None
 
         embed = discord.Embed(
-            title=f"◈  INFOS COMPTE — {membre.display_name.upper()}  ◈",
+            title=f"◈  INFOS COMPTE - {membre.display_name.upper()}  ◈",
             color=COLOR_MAIN,
         )
         embed.set_thumbnail(url=membre.display_avatar.url)
@@ -414,7 +414,7 @@ class AutoMod(commands.Cog):
             self.bot.user.id,
         )
 
-        detail = f"Spam détecté — mute {timeout_seconds}s" if timeout_ok else "Spam détecté — mute impossible (permissions)"
+        detail = f"Spam détecté - mute {timeout_seconds}s" if timeout_ok else "Spam détecté - mute impossible (permissions)"
         await send_mod_log(message.guild, build_log_embed("🚨 Antispam", self.bot.user, member, detail, COLOR_WARN))
 
         try:

@@ -73,7 +73,7 @@ def has_mod_permission(interaction: discord.Interaction, command: str) -> bool:
 async def send_dm(member: discord.Member, action: str, reason: str, guild_name: str):
     try:
         embed = discord.Embed(
-            title=f"◈  SANCTION — {action.upper()}  ◈",
+            title=f"◈  SANCTION - {action.upper()}  ◈",
             description=(
                 f"Tu as reçu une sanction sur **{guild_name}**.\n"
                 "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -127,7 +127,7 @@ def filter_by_category(sanctions: list, category: str) -> list:
 
 def build_historique_embed(membre: discord.Member, sanctions: list, category: str) -> discord.Embed:
     embed = discord.Embed(
-        title=f"◈  DOSSIER — {membre.display_name.upper()}  ◈",
+        title=f"◈  DOSSIER - {membre.display_name.upper()}  ◈",
         color=COLOR_MAIN,
     )
     embed.set_thumbnail(url=membre.display_avatar.url)
@@ -140,10 +140,10 @@ def build_historique_embed(membre: discord.Member, sanctions: list, category: st
 
         embed.description = (
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"⚠️ **Warns** — `{len(warns)}` sanction{'s' if len(warns) > 1 else ''}{'  •  Dernier : ' + warns[-1]['date'] if warns else ''}\n"
-            f"👢 **Kicks** — `{len(kicks)}` sanction{'s' if len(kicks) > 1 else ''}{'  •  Dernier : ' + kicks[-1]['date'] if kicks else ''}\n"
-            f"🔨 **Bans** — `{len(bans)}` sanction{'s' if len(bans) > 1 else ''}{'  •  Dernier : ' + bans[-1]['date'] if bans else ''}\n"
-            f"🔇 **Mutes** — `{len(mutes)}` sanction{'s' if len(mutes) > 1 else ''}{'  •  Dernier : ' + mutes[-1]['date'] if mutes else ''}\n"
+            f"⚠️ **Warns** - `{len(warns)}` sanction{'s' if len(warns) > 1 else ''}{'  •  Dernier : ' + warns[-1]['date'] if warns else ''}\n"
+            f"👢 **Kicks** - `{len(kicks)}` sanction{'s' if len(kicks) > 1 else ''}{'  •  Dernier : ' + kicks[-1]['date'] if kicks else ''}\n"
+            f"🔨 **Bans** - `{len(bans)}` sanction{'s' if len(bans) > 1 else ''}{'  •  Dernier : ' + bans[-1]['date'] if bans else ''}\n"
+            f"🔇 **Mutes** - `{len(mutes)}` sanction{'s' if len(mutes) > 1 else ''}{'  •  Dernier : ' + mutes[-1]['date'] if mutes else ''}\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
             f"**Total : `{len(sanctions)}` sanction{'s' if len(sanctions) > 1 else ''}**"
         )
@@ -403,7 +403,7 @@ class Moderation(commands.Cog):
     @app_commands.describe(membre="Le membre dont voir l'historique (staff uniquement)")
     async def historique(self, interaction: discord.Interaction, membre: discord.Member = None):
 
-        # En MP — uniquement son propre historique
+        # En MP - uniquement son propre historique
         if interaction.guild is None:
             target = interaction.user
             sanctions     = load_sanctions()
@@ -412,7 +412,7 @@ class Moderation(commands.Cog):
             await interaction.response.send_message(embed=embed, view=HistoriqueView(target, user_sanctions))
             return
 
-        # En serveur — son propre historique sans argument
+        # En serveur - son propre historique sans argument
         if membre is None:
             target = interaction.user
             sanctions      = load_sanctions()
@@ -421,7 +421,7 @@ class Moderation(commands.Cog):
             await interaction.response.send_message(embed=embed, view=HistoriqueView(target, user_sanctions), ephemeral=True)
             return
 
-        # En serveur avec @membre — staff uniquement
+        # En serveur avec @membre - staff uniquement
         if not has_mod_permission(interaction, "warn"):
             await interaction.response.send_message("❌ Tu n'as pas la permission de voir les sanctions des autres membres.", ephemeral=True)
             return

@@ -28,7 +28,7 @@ DEFAULT_GMOD_STATUS = {
 }
 
 # ─────────────────────────────────────────
-#  UTILS — CONFIG
+#  UTILS - CONFIG
 # ─────────────────────────────────────────
 
 def load_config():
@@ -60,7 +60,7 @@ def save_gmod_status_config(cfg: dict):
 def build_status_embed(info=None, error: str = None) -> discord.Embed:
     if error:
         embed = discord.Embed(
-            title="◈  SERVEUR GMOD — HORS LIGNE  ◈",
+            title="◈  SERVEUR GMOD - HORS LIGNE  ◈",
             description=f"❌ Impossible de contacter le serveur.\n`{error}`",
             color=COLOR_DANGER,
         )
@@ -72,7 +72,7 @@ def build_status_embed(info=None, error: str = None) -> discord.Embed:
     bar = "█" * filled + "░" * (bar_length - filled)
 
     embed = discord.Embed(
-        title="◈  SERVEUR GMOD — EN LIGNE  ◈",
+        title="◈  SERVEUR GMOD - EN LIGNE  ◈",
         description=(
             f"**{info.server_name}**\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
@@ -84,11 +84,11 @@ def build_status_embed(info=None, error: str = None) -> discord.Embed:
         color=COLOR_SUCCESS,
     )
     embed.set_thumbnail(url=AERON_LOGO)
-    embed.set_footer(text="AERON • Statut serveur — actualisé automatiquement", icon_url=AERON_LOGO)
+    embed.set_footer(text="AERON • Statut serveur - actualisé automatiquement", icon_url=AERON_LOGO)
     return embed
 
 # ─────────────────────────────────────────
-#  MODALS / SELECTS — SETTINGS
+#  MODALS / SELECTS - SETTINGS
 # ─────────────────────────────────────────
 
 class GmodAddressModal(discord.ui.Modal, title="Adresse du serveur GMod"):
@@ -158,14 +158,14 @@ class GmodRenameChannelSelect(discord.ui.ChannelSelect):
         await interaction.response.edit_message(embed=build_gmod_settings_embed(cfg), view=GmodStatusSettingsView())
 
 # ─────────────────────────────────────────
-#  SETTINGS — VUE
+#  SETTINGS - VUE
 # ─────────────────────────────────────────
 
 def build_gmod_settings_embed(cfg: dict) -> discord.Embed:
     channel_display = f"<#{cfg['channel_id']}>" if cfg['channel_id'] else "Non configuré"
     rename_display = f"<#{cfg['rename_channel_id']}>" if cfg.get('rename_channel_id') else "Non configuré"
     embed = discord.Embed(
-        title="◈  SETTINGS — STATUT SERVEUR GMOD  ◈",
+        title="◈  SETTINGS - STATUT SERVEUR GMOD  ◈",
         description=(
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
             f"**Statut :** {'✅ Activé' if cfg['enabled'] else '❌ Désactivé'}\n"

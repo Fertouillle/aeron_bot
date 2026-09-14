@@ -19,7 +19,7 @@ OWNER_ID = 219821139910852619
 DATA_FILE = "reaction_roles.json"
 
 # ─────────────────────────────────────────
-#  UTILS — PERSISTANCE
+#  UTILS - PERSISTANCE
 # ─────────────────────────────────────────
 
 def load_data():
@@ -44,7 +44,7 @@ def match_role_id(panel: dict, emoji: discord.PartialEmoji):
 # ─────────────────────────────────────────
 
 def build_panel_embed(panel: dict) -> discord.Embed:
-    lines = [f"{entry['emoji']} — <@&{entry['role_id']}>" for entry in panel["roles"]]
+    lines = [f"{entry['emoji']} - <@&{entry['role_id']}>" for entry in panel["roles"]]
     roles_text = "\n".join(lines) if lines else "*Aucun rôle configuré pour le moment.*"
 
     parts = []
@@ -66,11 +66,11 @@ def build_panel_embed(panel: dict) -> discord.Embed:
 
 
 def build_manage_embed(panel: dict) -> discord.Embed:
-    lines = [f"{entry['emoji']} — <@&{entry['role_id']}>" for entry in panel["roles"]]
+    lines = [f"{entry['emoji']} - <@&{entry['role_id']}>" for entry in panel["roles"]]
     roles_text = "\n".join(lines) if lines else "*Aucun rôle configuré.*"
 
     embed = discord.Embed(
-        title=f"◈  GESTION — {panel.get('title', 'PANNEAU').upper()}  ◈",
+        title=f"◈  GESTION - {panel.get('title', 'PANNEAU').upper()}  ◈",
         description=(
             f"**Rôles configurés :**\n{roles_text}\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
@@ -451,7 +451,7 @@ def build_reorder_embed(panel: dict, guild: discord.Guild, highlight_role_id: in
         role = guild.get_role(entry["role_id"])
         name = role.name if role else "Rôle supprimé"
         marker = "➡️ " if entry["role_id"] == highlight_role_id else ""
-        lines.append(f"{marker}{index}. {entry['emoji']} — {name}")
+        lines.append(f"{marker}{index}. {entry['emoji']} - {name}")
 
     embed = discord.Embed(
         title="◈  RÉORDONNER LES RÔLES  ◈",
@@ -810,7 +810,7 @@ class ReactionRoles(commands.Cog):
 
         try:
             if role in member.roles:
-                await member.remove_roles(role, reason="Retrait réaction — rôles à réaction")
+                await member.remove_roles(role, reason="Retrait réaction - rôles à réaction")
         except discord.Forbidden:
             print(f"❌ Permissions insuffisantes pour retirer un rôle sur {guild.name}")
         except discord.HTTPException as e:

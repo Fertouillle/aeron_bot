@@ -113,7 +113,7 @@ def build_results_embed(poll: dict) -> discord.Embed:
     total = sum(len(v) for v in poll["votes"].values())
 
     embed = discord.Embed(
-        title=f"◈  RÉSULTATS — {poll['question'].upper()}  ◈",
+        title=f"◈  RÉSULTATS - {poll['question'].upper()}  ◈",
         color=COLOR_MAIN,
     )
     for option, voter_ids in poll["votes"].items():
@@ -121,7 +121,7 @@ def build_results_embed(poll: dict) -> discord.Embed:
         percent = round((count / total * 100) if total > 0 else 0)
         voters  = ", ".join([f"<@{uid}>" for uid in voter_ids]) if voter_ids else "*Aucun vote*"
         embed.add_field(
-            name=f"{option} — {percent}% ({count} vote{'s' if count != 1 else ''})",
+            name=f"{option} - {percent}% ({count} vote{'s' if count != 1 else ''})",
             value=voters,
             inline=False
         )
@@ -211,7 +211,7 @@ class PollYesNoView(discord.ui.View):
             percent = round((count / total * 100) if total > 0 else 0)
             log_embed.add_field(
                 name=f"{option}",
-                value=f"**{percent}%** — {count} vote{'s' if count != 1 else ''}",
+                value=f"**{percent}%** - {count} vote{'s' if count != 1 else ''}",
                 inline=True
             )
 
@@ -310,7 +310,7 @@ class PollChoiceView(discord.ui.View):
             percent = round((count / total * 100) if total > 0 else 0)
             log_embed.add_field(
                 name=f"{option}",
-                value=f"**{percent}%** — {count} vote{'s' if count != 1 else ''}",
+                value=f"**{percent}%** - {count} vote{'s' if count != 1 else ''}",
                 inline=True
             )
 
