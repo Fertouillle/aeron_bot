@@ -29,151 +29,56 @@ def load_config():
     return {}
 
 # ─────────────────────────────────────────
-#  EMBEDS DU RÈGLEMENT
+#  EMBED DU RÈGLEMENT
 # ─────────────────────────────────────────
 
-def build_reglement_embeds() -> list:
-    embeds = []
+def get_reglement_config() -> dict:
+    config = load_config()
+    return config.get("reglement", {})
 
-    # ── Introduction
-    embed_intro = discord.Embed(
-        title="◈  RÈGLEMENT GÉNÉRAL - AERON  ◈",
-        description=(
-            "Bienvenue sur **Aeron**, serveur Clone Wars RP.\n"
-            "Avant de rejoindre la communauté, merci de lire attentivement les règles suivantes.\n"
-            "En acceptant ce règlement, tu t'engages à les respecter en toutes circonstances.\n\n"
-            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        ),
+def build_reglement_embed() -> discord.Embed:
+    doc_url = get_reglement_config().get("doc_url")
+
+    description = (
+        "Bienvenue sur **Aeron**, serveur Clone Wars RP.\n\n"
+        "Le règlement complet de la communauté est disponible dans le document "
+        "ci-dessous. Merci de le lire **attentivement** avant d'accepter — il "
+        "s'applique à tous les membres, sans exception.\n"
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+    )
+    if doc_url:
+        description += f"📄 **[Lire le règlement complet]({doc_url})**\n\n"
+    description += (
+        "✅ Une fois la lecture terminée, clique sur **J'ai lu et j'accepte** "
+        "ci-dessous pour accéder à l'ensemble du serveur.\n"
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "*- Commandement AERON*"
+    )
+
+    embed = discord.Embed(
+        title="◈  RÈGLEMENT GÉNÉRAL — AERON  ◈",
+        description=description,
         color=COLOR_MAIN,
     )
-    embed_intro.set_thumbnail(url=AERON_LOGO)
-    embed_intro.set_footer(text="AERON • Règlement Général", icon_url=AERON_LOGO)
-    embeds.append(embed_intro)
-
-    # ── Section 1 : Comportement général
-    embed_comportement = discord.Embed(
-        title="§1 - Comportement Général",
-        description="━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-        color=COLOR_MAIN,
-    )
-    embed_comportement.add_field(
-        name="1.1 - Respect",
-        value="Le respect est obligatoire envers tous les membres, qu'il s'agisse de joueurs ou de staff. Tout comportement irrespectueux, insultant ou discriminatoire sera sanctionné.",
-        inline=False
-    )
-    embed_comportement.add_field(
-        name="1.2 - Harcèlement",
-        value="Toute forme de harcèlement, de provocation répétée ou de comportement toxique est strictement interdite et entraînera un bannissement immédiat.",
-        inline=False
-    )
-    embed_comportement.add_field(
-        name="1.3 - Contenu inapproprié",
-        value="Tout contenu à caractère pornographique, violent, raciste, homophobe ou illégal est formellement interdit sur l'ensemble des salons du serveur.",
-        inline=False
-    )
-    embed_comportement.set_footer(text="AERON • Règlement Général", icon_url=AERON_LOGO)
-    embeds.append(embed_comportement)
-
-    # ── Section 2 : Règles RP
-    embed_rp = discord.Embed(
-        title="§2 - Règles Roleplay",
-        description="━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-        color=COLOR_MAIN,
-    )
-    embed_rp.add_field(
-        name="2.1 - Immersion",
-        value="Le respect de l'immersion est primordial. Les communications hors-RP doivent rester dans les salons dédiés. Toute rupture d'immersion intentionnelle sera sanctionnée.",
-        inline=False
-    )
-    embed_rp.add_field(
-        name="2.2 - RDM (Random Death Match)",
-        value="Tuer un joueur sans raison valable ou sans contexte RP est strictement interdit. Chaque action létale doit être justifiée par le scénario en cours.",
-        inline=False
-    )
-    embed_rp.add_field(
-        name="2.3 - FailRP",
-        value="Tout comportement contraire à la logique du roleplay (FailRP) est interdit. Les joueurs doivent agir conformément à leur rôle et au contexte de la mission.",
-        inline=False
-    )
-    embed_rp.add_field(
-        name="2.4 - Metagaming",
-        value="L'utilisation d'informations obtenues hors-RP dans le jeu est interdite. Ce que ton personnage ne sait pas, tu ne peux pas l'utiliser.",
-        inline=False
-    )
-    embed_rp.set_footer(text="AERON • Règlement Général", icon_url=AERON_LOGO)
-    embeds.append(embed_rp)
-
-    # ── Section 3 : Communication
-    embed_comm = discord.Embed(
-        title="§3 - Communication",
-        description="━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-        color=COLOR_MAIN,
-    )
-    embed_comm.add_field(
-        name="3.1 - Spam",
-        value="Le spam, les messages répétitifs, les mentions abusives (@everyone, @here) et les floods sont interdits dans tous les salons.",
-        inline=False
-    )
-    embed_comm.add_field(
-        name="3.2 - Publicité",
-        value="Toute publicité pour un autre serveur Discord, site web ou réseau social est interdite sans autorisation préalable du staff.",
-        inline=False
-    )
-    embed_comm.add_field(
-        name="3.3 - Langue",
-        value="La langue officielle du serveur est le **français**. Merci de communiquer en français dans tous les salons publics.",
-        inline=False
-    )
-    embed_comm.set_footer(text="AERON • Règlement Général", icon_url=AERON_LOGO)
-    embeds.append(embed_comm)
-
-    # ── Section 4 : Staff
-    embed_staff = discord.Embed(
-        title="§4 - Staff & Sanctions",
-        description="━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-        color=COLOR_MAIN,
-    )
-    embed_staff.add_field(
-        name="4.1 - Décisions du staff",
-        value="Les décisions du staff sont définitives. Toute contestation doit se faire via le système de tickets, jamais en public.",
-        inline=False
-    )
-    embed_staff.add_field(
-        name="4.2 - Sanctions",
-        value="Les sanctions appliquées sont : avertissement, mute temporaire, kick, bannissement temporaire ou définitif selon la gravité de l'infraction.",
-        inline=False
-    )
-    embed_staff.add_field(
-        name="4.3 - Usurpation",
-        value="Se faire passer pour un membre du staff ou utiliser un pseudo trompeur est strictement interdit et entraîne un bannissement immédiat.",
-        inline=False
-    )
-    embed_staff.set_footer(text="AERON • Règlement Général", icon_url=AERON_LOGO)
-    embeds.append(embed_staff)
-
-    # ── Conclusion
-    embed_fin = discord.Embed(
-        title="◈  ACCEPTATION DU RÈGLEMENT  ◈",
-        description=(
-            "En cliquant sur le bouton ci-dessous, tu certifies avoir lu et accepté l'intégralité du règlement d'AERON.\n\n"
-            "Tout manquement aux règles exposées ci-dessus pourra entraîner des sanctions allant jusqu'au bannissement définitif.\n\n"
-            "*- Commandement AERON*"
-        ),
-        color=COLOR_SUCCESS,
-    )
-    embed_fin.set_thumbnail(url=AERON_LOGO)
-    embed_fin.set_footer(text="AERON • Règlement Général", icon_url=AERON_LOGO)
-    embeds.append(embed_fin)
-
-    return embeds
+    embed.set_thumbnail(url=AERON_LOGO)
+    embed.set_footer(text="AERON • Règlement Général", icon_url=AERON_LOGO)
+    return embed
 
 # ─────────────────────────────────────────
-#  VUE : BOUTON ACCEPTATION
+#  VUE : BOUTONS RÈGLEMENT
 # ─────────────────────────────────────────
 
 class ReglementView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
+        doc_url = get_reglement_config().get("doc_url")
+        if doc_url:
+            self.add_item(discord.ui.Button(
+                label="Lire le règlement",
+                emoji="📄",
+                style=discord.ButtonStyle.link,
+                url=doc_url,
+            ))
 
     @discord.ui.button(
         label="J'ai lu et j'accepte le règlement",

@@ -75,11 +75,17 @@ class SettingsMainView(discord.ui.View):
     async def reglement_btn(self, interaction: discord.Interaction, button: discord.ui.Button):
         config  = load_config()
         role_id = config.get("reglement", {}).get("role_id")
+        doc_url = config.get("reglement", {}).get("doc_url")
         current = f"<@&{role_id}>" if role_id else "*Non configuré*"
+        doc_current = doc_url if doc_url else "*Non configuré*"
 
         embed = discord.Embed(
             title="◈  SETTINGS — RÈGLEMENT  ◈",
-            description=f"**Rôle attribué à l'acceptation :** {current}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+            description=(
+                f"**Rôle attribué à l'acceptation :** {current}\n"
+                f"**Lien du règlement :** {doc_current}\n"
+                "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            ),
             color=COLOR_MAIN,
         )
         embed.set_thumbnail(url=AERON_LOGO)
@@ -299,14 +305,10 @@ class ReglementChannelSelect(discord.ui.ChannelSelect):
 
     async def callback(self, interaction: discord.Interaction):
         try:
-            from cogs.reglement import build_reglement_embeds, ReglementView
+            from cogs.reglement import build_reglement_embed, ReglementView
 
             channel = interaction.guild.get_channel(self.values[0].id)
-            embeds  = build_reglement_embeds()
-
-            for embed in embeds[:-1]:
-                await channel.send(embed=embed)
-            await channel.send(embed=embeds[-1], view=ReglementView())
+            await channel.send(embed=build_reglement_embed(), view=ReglementView())
 
             embed = discord.Embed(
                 title="◈  RÈGLEMENT ENVOYÉ  ◈",
@@ -321,6 +323,34 @@ class ReglementChannelSelect(discord.ui.ChannelSelect):
             await interaction.response.send_message(f"❌ Erreur : `{e}`", ephemeral=True)
 
 
+class ReglementDocUrlModal(discord.ui.Modal, title="Lien du règlement"):
+    url = discord.ui.TextInput(
+        label="Lien du document (Google Doc, etc.)",
+        placeholder="https://docs.google.com/document/d/...",
+        max_length=300,
+    )
+
+    async def on_submit(self, interaction: discord.Interaction):
+        value = self.url.value.strip()
+        if not value.startswith("http://") and not value.startswith("https://"):
+            await interaction.response.send_message("❌ Le lien doit commencer par `http://` ou `https://`.", ephemeral=True)
+            return
+
+        config = load_config()
+        if "reglement" not in config:
+            config["reglement"] = {}
+        config["reglement"]["doc_url"] = value
+        save_config(config)
+
+        embed = discord.Embed(
+            title="◈  RÈGLEMENT CONFIGURÉ  ◈",
+            description=f"✅ Lien du règlement défini :\n{value}",
+            color=COLOR_SUCCESS,
+        )
+        embed.set_footer(text="AERON • Settings", icon_url=AERON_LOGO)
+        await interaction.response.edit_message(embed=embed, view=SettingsReglementView())
+
+
 class SettingsReglementView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=120)
@@ -331,6 +361,10 @@ class SettingsReglementView(discord.ui.View):
             await interaction.response.send_message("❌ Accès refusé.", ephemeral=True)
             return False
         return True
+
+    @discord.ui.button(label="Lien du règlement", emoji="🔗", style=discord.ButtonStyle.secondary)
+    async def set_doc_url(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await interaction.response.send_modal(ReglementDocUrlModal())
 
     @discord.ui.button(label="Envoyer le règlement", emoji="📜", style=discord.ButtonStyle.primary)
     async def send_reglement(self, interaction: discord.Interaction, button: discord.ui.Button):
@@ -373,11 +407,17 @@ class SettingsReglementChannelView(discord.ui.View):
     async def back(self, interaction: discord.Interaction, button: discord.ui.Button):
         config  = load_config()
         role_id = config.get("reglement", {}).get("role_id")
+        doc_url = config.get("reglement", {}).get("doc_url")
         current = f"<@&{role_id}>" if role_id else "*Non configuré*"
+        doc_current = doc_url if doc_url else "*Non configuré*"
 
         embed = discord.Embed(
             title="◈  SETTINGS — RÈGLEMENT  ◈",
-            description=f"**Rôle attribué à l'acceptation :** {current}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+            description=(
+                f"**Rôle attribué à l'acceptation :** {current}\n"
+                f"**Lien du règlement :** {doc_current}\n"
+                "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            ),
             color=COLOR_MAIN,
         )
         embed.set_footer(text="AERON • Settings", icon_url=AERON_LOGO)
