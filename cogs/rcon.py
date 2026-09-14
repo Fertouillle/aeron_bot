@@ -47,12 +47,16 @@ def save_config(data):
 
 def get_rcon_config() -> dict:
     config = load_config()
-    default = {"ip": None, "port": 27015, "password": "", "logs_channel_id": None}
+    default = {"ip": None, "port": 27015, "logs_channel_id": None}
     default.update(config.get("rcon", {}))
+    default.pop("password", None)  # le mot de passe ne vit jamais dans config.json
+    default["password"] = os.getenv("RCON_PASSWORD", "")
     return default
 
 def save_rcon_config(cfg: dict):
     config = load_config()
+    cfg = dict(cfg)
+    cfg.pop("password", None)  # jamais persisté sur disque / dans Git
     config["rcon"] = cfg
     save_config(config)
 
@@ -136,6 +140,11 @@ class RconClient:
                 pass
 
 
+def sanitize_rcon_arg(value: str) -> str:
+    """Retire les caractères permettant de casser une commande RCON (guillemets, retours à la ligne, séparateurs)."""
+    return value.translate(str.maketrans("", "", '"\';\n\r'))
+
+
 async def run_rcon_command(cmd: str) -> str:
     cfg = get_rcon_config()
     if not cfg.get("ip") or not cfg.get("password"):
@@ -211,7 +220,7 @@ class SayModal(RconActionModal, title="Message serveur (say)"):
     message = discord.ui.TextInput(label="Message à diffuser", style=discord.TextStyle.paragraph, max_length=200)
 
     async def build_command(self) -> str:
-        return RCON_COMMANDS["say"].format(message=self.message.value)
+        return RCON_COMMANDS["say"].format(message=sanitize_rcon_arg(self.message.value))
 
 
 class ChangemapModal(RconActionModal, title="Changer de map"):
@@ -219,7 +228,7 @@ class ChangemapModal(RconActionModal, title="Changer de map"):
     map_name = discord.ui.TextInput(label="Nom exact de la map", placeholder="rp_coruscant_v2", max_length=64)
 
     async def build_command(self) -> str:
-        return RCON_COMMANDS["changemap"].format(map=self.map_name.value)
+        return RCON_COMMANDS["changemap"].format(map=sanitize_rcon_arg(self.map_name.value))
 
 
 class KickModal(RconActionModal, title="Kick un joueur"):
@@ -228,8 +237,9 @@ class KickModal(RconActionModal, title="Kick un joueur"):
     reason = discord.ui.TextInput(label="Raison", required=False, max_length=200)
 
     async def build_command(self) -> str:
-        reason = self.reason.value or "Aucune raison précisée"
-        return RCON_COMMANDS["kick"].format(player=self.player.value, reason=reason)
+        reason = sanitize_rcon_arg(self.reason.value or "Aucune raison précisée")
+        player = sanitize_rcon_arg(self.player.value)
+        return RCON_COMMANDS["kick"].format(player=player, reason=reason)
 
 
 class BanModal(RconActionModal, title="Bannir un joueur"):
@@ -239,11 +249,12 @@ class BanModal(RconActionModal, title="Bannir un joueur"):
     reason = discord.ui.TextInput(label="Raison", required=False, max_length=200)
 
     async def build_command(self) -> str:
-        reason = self.reason.value or "Aucune raison précisée"
+        reason = sanitize_rcon_arg(self.reason.value or "Aucune raison précisée")
+        player = sanitize_rcon_arg(self.player.value)
         duration = self.duration.value.strip() or "0"
         if not duration.isdigit():
             duration = "0"
-        return RCON_COMMANDS["ban"].format(player=self.player.value, duration=duration, reason=reason)
+        return RCON_COMMANDS["ban"].format(player=player, duration=duration, reason=reason)
 
 # ─────────────────────────────────────────
 #  MODAL — CONFIGURATION
@@ -258,12 +269,8 @@ class RconConfigModal(discord.ui.Modal, title="Configuration RCON"):
         self.port_input = discord.ui.TextInput(
             label="Port RCON", default=str(cfg.get("port") or 27015), max_length=6
         )
-        self.password_input = discord.ui.TextInput(
-            label="Mot de passe RCON", default=cfg.get("password") or "", max_length=128
-        )
         self.add_item(self.ip_input)
         self.add_item(self.port_input)
-        self.add_item(self.password_input)
 
     async def on_submit(self, interaction: discord.Interaction):
         cfg = get_rcon_config()
@@ -272,7 +279,6 @@ class RconConfigModal(discord.ui.Modal, title="Configuration RCON"):
             cfg["port"] = int(self.port_input.value.strip())
         except ValueError:
             cfg["port"] = 27015
-        cfg["password"] = self.password_input.value
         save_rcon_config(cfg)
 
         embed = build_rcon_settings_embed(cfg)
@@ -284,7 +290,7 @@ class RconConfigModal(discord.ui.Modal, title="Configuration RCON"):
 
 def build_rcon_settings_embed(cfg: dict) -> discord.Embed:
     ip_line = f"`{cfg['ip']}:{cfg['port']}`" if cfg.get("ip") else "*Non configuré*"
-    pwd_line = "`••••••••`" if cfg.get("password") else "*Non défini*"
+    pwd_line = "`••••••••` (variable d'environnement)" if cfg.get("password") else "❌ *Non défini — ajoute `RCON_PASSWORD` dans les variables d'environnement*"
     logs_line = f"<#{cfg['logs_channel_id']}>" if cfg.get("logs_channel_id") else "*Non configuré*"
 
     embed = discord.Embed(
@@ -294,6 +300,8 @@ def build_rcon_settings_embed(cfg: dict) -> discord.Embed:
             f"**Mot de passe :** {pwd_line}\n"
             f"**Salon de logs :** {logs_line}\n"
             "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            "🔒 Le mot de passe RCON se configure uniquement via la variable d'environnement "
+            "`RCON_PASSWORD` (jamais stocké dans un fichier).\n"
             "⚠️ Le format exact des commandes kick/ban dépend de SAM — "
             "vérifie `RCON_COMMANDS` dans `rcon.py` si ça ne correspond pas à ta config."
         ),

@@ -479,7 +479,7 @@ class TicketSelect(discord.ui.Select):
             traceback.print_exc()
             try:
                 await interaction.followup.send(f"❌ Erreur : `{e}`", ephemeral=True)
-            except:
+            except discord.HTTPException:
                 pass
 
 

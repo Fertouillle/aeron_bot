@@ -84,7 +84,7 @@ async def send_dm(member: discord.Member, action: str, reason: str, guild_name: 
         embed.add_field(name="◈ Raison",  value=reason,  inline=True)
         embed.set_footer(text="AERON • Modération", icon_url=AERON_LOGO)
         await member.send(embed=embed)
-    except:
+    except discord.HTTPException:
         pass  # DM fermés
 
 def build_log_embed(action: str, moderator: discord.Member, target: discord.Member | str, reason: str, color: int) -> discord.Embed:
@@ -368,7 +368,7 @@ class Moderation(commands.Cog):
             traceback.print_exc()
             try:
                 await interaction.response.send_message(f"❌ Erreur : `{e}`", ephemeral=True)
-            except:
+            except discord.HTTPException:
                 await interaction.followup.send(f"❌ Erreur : `{e}`", ephemeral=True)
 
     # ── UNMUTE ────────────────────────────
