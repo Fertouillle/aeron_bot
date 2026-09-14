@@ -34,13 +34,6 @@
             "unmute": []
         }
     },
-    "captcha": {
-        "enabled": true,
-        "verification_channel_id": 1528015290137579620,
-        "logs_channel_id": 1528015308189601822,
-        "unverified_role_id": 1528015270189207703,
-        "verified_role_id": 1533447675758772274
-    },
     "vocal": {
         "hub_channel_id": null
     },
