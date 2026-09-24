@@ -1,3 +1,14 @@
 .env
 __pycache__/
 *.pyc
+
+# Données runtime du bot - vivent uniquement sur l'hébergeur,
+# jamais écrasées par un redéploiement/pull.
+config.json
+levels.json
+vocal_channels.json
+tickets_count.json
+birthdays.json
+polls.json
+reaction_roles.json
+sanctions.json
